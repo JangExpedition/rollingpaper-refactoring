@@ -1,0 +1,28 @@
+server:
+  servlet:
+    context-path: /rollingpaper
+  port: 10000
+  
+logging:
+  level:
+    '[com.sh.rollingpaper]' : debug
+    
+# jsp를 view단으로 사용하는 경우
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://j-iot.co.kr:3307/rollingpaper
+    username : june9152
+    passowrd : qkrdudwns1!
+    
+mybatis:
+  configuration:
+    jdbc-type-for-null: NULL
+    map-underscore-to-camel-case: true
+    type-aliases-package: com.sh.rollingpaper.membmer
+    mapper-locations:
+      - classpath*:mapper/**/*-mapper.xml

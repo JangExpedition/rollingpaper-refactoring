@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.rollingpaper.member.model.dao.MemberDao">
+	<select id="selectOneMember" resultMap="memberMap">
+		select
+			*
+		from
+			rollingpaper.`MEMBER`
+		where
+			name = #{name}
+	</select>
+	<resultMap type="member" id="memberMap"></resultMap> 
+	<select id="selectAllMember" resultMap="memberMap">
+		select
+			*
+		from
+			rollingpaper.`MEMBER`
+		where
+			name != #{name}
+		order by
+			name
+	</select> 
+	<insert id="insertMember">
+		insert into
+			rollingpaper.`MEMBER`
+		values(
+			seq_member_no.nextval, #{name}, #{password}
+		)
+	</insert>  
+	<update id="updateMember">
+		update
+			rollingpaper.`MEMBER`
+		set
+			password = #{password}
+		where
+			no = #{no}
+	</update>
+	<select id="selectOneMemberByNo" resultMap="memberMap">
+		select
+			*
+		from
+			rollingpaper.`MEMBER`
+		where
+			no = #{no}
+	</select>
+</mapper>
