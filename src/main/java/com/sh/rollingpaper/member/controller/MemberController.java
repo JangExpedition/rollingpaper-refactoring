@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sh.rollingpaper.board.model.dto.Board;
@@ -36,29 +38,7 @@ public class MemberController {
 	@Autowired
 	private BoardService boardService;
 	
-	@Autowired
-//	private BCryptPasswordEncoder passwordEncoder;
-	
-	@GetMapping("/memberLogin.dp")
-	public String memberLogin() {
-		return "/";
-	}
-	
-	@PostMapping("/memberLogin.do")
-	public String memberLogin(Member member, Model model, RedirectAttributes redirectAttr) {
-		Member loginMember = memberService.selectOneMember(member.getName());
-		
-//		if(loginMember != null && passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
-//			model.addAttribute("loginMember", loginMember);
-//			return "redirect:/member/memberList.do";
-//		}
-//		else{
-//			redirectAttr.addFlashAttribute("msg", "아이디 비밀번호가 일치하지 않습니다.");
-			return "redirect:/";
-//		}
-	}
-	
-	@GetMapping("/memberList.do")
+	@GetMapping("/memberList")
 	public void memberList(Model model) {
 		Member loginMember = (Member) model.getAttribute("loginMember");
 		List<Member> memberList = memberService.selectAllMember(loginMember);
@@ -71,14 +51,6 @@ public class MemberController {
 		List<Board> boardList = boardService.selectBoardList(no);
 		model.addAttribute("boardList", boardList);
 		return "member/myPage";
-	}
-	
-	@GetMapping("/logout.do")
-	public String logout(SessionStatus status) {
-		if(!status.isComplete())
-			status.setComplete();
-		
-		return "redirect:/";
 	}
 	
 	@PostMapping("/memberUpdate.do")

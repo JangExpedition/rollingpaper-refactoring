@@ -17,7 +17,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://j-iot.co.kr:3307/rollingpaper
     username : june9152
-    passowrd : qkrdudwns1!
+    password : qkrdudwns1!
     
 mybatis:
   configuration:
@@ -26,3 +26,4 @@ mybatis:
     type-aliases-package: com.sh.rollingpaper.membmer
     mapper-locations:
       - classpath*:mapper/**/*-mapper.xml
+     

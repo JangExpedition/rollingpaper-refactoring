@@ -25,18 +25,15 @@
 			<div id="commentBox">얼마 남지 않은 기간 화이팅하시고 수료 후 좋은 일만 있길 바랍니다.</div>
 		</div>
 		<div id="LoginBox">
-			<form action="${ pageContext.request.contextPath }/member/memberLogin.do" name="loginFrm" method="post">
+			<form action="${ pageContext.request.contextPath }/login?${_csrf.parameterName}=${_csrf.token}" name="loginFrm" method="POST">
 				<fieldset>
 					<div id="loginTitle">Login</div>
 					<label for="name">Name</label>
-					<input type="text" id="name" name="name" placeholder="Your name" class="inputBar"/>
+					<input type="text" id="name" name="username" placeholder="Your name" class="inputBar"/>
 					<label for="Password">Password</label>
 					<input type="password" id="password" name="password" placeholder="Your password" class="inputBar"/>
 				</fieldset>
 				<div id="submitBox">
-					<!-- <div id="searchPwd">
-						<span>Forgot password?</span>
-					</div> -->
 					<input type="submit" value="Login" id="loginBtn" name="loginBtn" class="btnStyle">
 				</div>
 			</form>
