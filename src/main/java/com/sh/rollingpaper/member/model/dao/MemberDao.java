@@ -14,7 +14,7 @@ public interface MemberDao {
 	Member selectOneMember(String name);
 
 	@Select("select * from rollingpaper.`MEMBER` where name != #{name} order by name")
-	List<Member> selectAllMember(Member loginMember);
+	List<Member> selectAllMemberWithoutMe(String name);
 
 	int insertMember(Member member);
 

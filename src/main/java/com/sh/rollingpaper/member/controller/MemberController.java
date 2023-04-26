@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,11 +37,23 @@ public class MemberController {
 	@Autowired
 	private BoardService boardService;
 	
+	/**
+	 * 로그인 객체 반환 메서드
+	 */
+	public Member getLoginMember() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member loginMember = (Member) authentication.getPrincipal();
+		return loginMember;
+	}
+	
+	/*
+	 * 나를 제외한 모든 회원목록 조회
+	 */
 	@GetMapping("/memberList")
 	public void memberList(Model model) {
-		Member loginMember = (Member) model.getAttribute("loginMember");
-		List<Member> memberList = memberService.selectAllMember(loginMember);
-		log.debug("memberList = {}", memberList);
+		Member loginMember = getLoginMember();
+		String name = loginMember.getName();
+		List<Member> memberList = memberService.selectAllMemberWithoutMe(name);
 		model.addAttribute("memberList", memberList);
 	}
 	

@@ -50,7 +50,7 @@ public class BoardController {
 	@PostMapping("/searchBoardList.do")
 	public String searchBoardList(@RequestParam String searchName, Model model, RedirectAttributes redirectAttr) {
 		Member loginMember = (Member) model.getAttribute("loginMember");
-		List<Member> memberList = memberService.selectAllMember(loginMember);
+		List<Member> memberList = memberService.selectAllMemberWithoutMe(loginMember.getName());
 		if(searchName.equals(loginMember.getName())) {
 			redirectAttr.addAttribute("no", loginMember.getNo());
 			return "redirect:/member/myPage.do";

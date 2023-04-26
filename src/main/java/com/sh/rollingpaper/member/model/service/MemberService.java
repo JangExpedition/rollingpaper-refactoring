@@ -8,7 +8,7 @@ public interface MemberService {
 
 	Member selectOneMember(String name);
 
-	List<Member> selectAllMember(Member loginMember);
+	List<Member> selectAllMemberWithoutMe(String name);
 
 	int insertMember(Member member);
 

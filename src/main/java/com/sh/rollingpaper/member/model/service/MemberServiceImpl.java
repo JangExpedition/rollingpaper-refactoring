@@ -26,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> selectAllMember(Member loginMember) {
-		return memberDao.selectAllMember(loginMember);
+	public List<Member> selectAllMemberWithoutMe(String name) {
+		return memberDao.selectAllMemberWithoutMe(name);
 	}
 
 	@Override
