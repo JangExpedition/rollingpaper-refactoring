@@ -1,0 +1,59 @@
+.memberListSection{
+	background-color: #000;
+	width: 100%;
+	display: flex;
+	align-item: center;
+	justify-content: center;
+}
+
+.tableSection{
+	background-color: #191f28;
+	padding: 20px;
+	border-radius: 20px;
+	margin-top: 20px;
+}
+
+.memberTable{
+	width: 500px;
+}
+
+.memberTable-thead>tr>th{
+	color: #fff;
+	font-size: 25px;
+	padding: 5px 10px;
+}
+
+.memberProfileImg{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background-color: #fff;
+}
+
+.memberTable-tbody>tr>th{
+	text-align: center;
+	width: 130px;
+	height: 130px;
+}
+
+.nameTd{
+	color: #fff;
+	width: 270px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.writeBtnTd{
+	width: 100px;
+	text-align: center;
+}
+
+.writeBtn{
+	padding: 3px 10px;
+	background-color: #666;
+	border: 0;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: bold;
+}

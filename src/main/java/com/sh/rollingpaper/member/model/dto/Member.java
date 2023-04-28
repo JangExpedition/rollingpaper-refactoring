@@ -22,6 +22,9 @@ public class Member implements UserDetails{
 	private int no;
 	private String name;
 	private String password;
+	private String originalFilename;
+	private String renamedFilename;
+	private Gender gender;
 	
 	List<SimpleGrantedAuthority> authorities;
 	
