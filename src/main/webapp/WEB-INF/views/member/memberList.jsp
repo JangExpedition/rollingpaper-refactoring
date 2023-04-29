@@ -30,7 +30,7 @@
 						</c:if>
 					</th>
 					<td class="nameTd">${ member.name }</td>
-					<td class="writeBtnTd"><input class="writeBtn" value="작성하기" type="button"/></td>
+					<td class="writeBtnTd"><input id="writeBtn" class="writeBtn" value="작성하기" type="button"/></td>
 				</tr>
 		  	</c:forEach>
 		  </tbody>
@@ -38,11 +38,8 @@
 	</div>
 </section>
 <script>
-document.querySelectorAll("tr[data-no]").forEach((tr) => {
-	tr.addEventListener("click", (e)=> {
-		const no = tr.dataset.no;
-		location.href="${pageContext.request.contextPath}/board/boardList.do?no=" + no;
-	});
+document.querySelector("#writeBtn").addEventListener("click", (e)=>{
+	
 });
 </script>
 </body>

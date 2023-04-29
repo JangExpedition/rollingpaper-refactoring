@@ -8,8 +8,17 @@ body{
 	overflow: scroll;
 }
 
-tr[data-no]:hover{
-	cursor: pointer;
-	background-color: lightgrey;
+.navbarColor{
+	background-color: #191f28;
 }
 
+.logo{
+	color: #3182f6 !important;
+	font-weight: bold;
+}
+
+.searchBtn{
+	background-color: #3182f6;
+	color: #fff;
+	font-weight: bold;
+}
