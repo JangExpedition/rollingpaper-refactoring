@@ -10,8 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.sh.rollingpaper.security.model.CustomizeAuthenticationFailureHandler;
 import com.sh.rollingpaper.security.model.service.SecurityService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private SecurityService securityService;
+	
+	@Bean
+	public AuthenticationFailureHandler authenticationFailureHandler() {
+		return new CustomizeAuthenticationFailureHandler();
+	};
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -52,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		.loginProcessingUrl("/login")
     		.loginPage("/")
     		.defaultSuccessUrl("/member/memberList")
-    		.failureForwardUrl("/");
+    		.failureHandler(authenticationFailureHandler());
     	
     	// 로그아웃 설정
     	http.logout()

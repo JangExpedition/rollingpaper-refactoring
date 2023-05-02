@@ -40,8 +40,8 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="${ pageContext.request.contextPath }/board/searchBoardList.do" method="post">
-      <input class="form-control mr-sm-2" type="search" placeholder="이름찾기" name="searchName" aria-label="Search">
-      <button class="btn searchBtn" type="submit">Search</button>
+      <input class="form-control mr-sm-2 searchInput" type="search" placeholder="이름찾기" name="searchName" aria-label="Search">
+      <button class="btn searchBtn" type="submit">찾기</button>
     </form>
   </div>
 </nav>
