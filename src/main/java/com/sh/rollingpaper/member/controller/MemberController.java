@@ -58,7 +58,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/myPage.do")
-	public String myPage(@RequestParam int no, Model model) {
+	public String myPage(Model model) {
+		Member loginMember = getLoginMember();
+		int no = loginMember.getNo();
 		List<Board> boardList = boardService.selectBoardList(no);
 		model.addAttribute("boardList", boardList);
 		return "member/myPage";

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kh.rollingpaper.board.model.dao.BoardDao">
+<mapper namespace="com.sh.rollingpaper.board.model.dao.BoardDao">
 <select id="selectBoardList" resultMap="boardMap">
 	select
 		*

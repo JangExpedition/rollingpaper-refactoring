@@ -3,31 +3,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="myPage" name="title"/> 
 </jsp:include>
-<style>
-div#update-container{width:400px; padding:10px auto; text-align:center;}
-div#update-container input, div#update-container select, p.errorMsg {margin-bottom:10px;}
-p.errorMsg{display: none; color: tomato;}
-tr[data-no] {cursor:pointer}
-</style>
-<div id="update-container">
-	<form name="memberUpdateFrm" action="${pageContext.request.contextPath}/member/memberUpdate.do" method="post">
-		<input type="hidden" name="no" value="${ loginMember.no }" />
-		<input type="text" class="form-control" placeholder="이름" name="name" id="name" value="${ loginMember.name }" readonly required/>
-		<input type="password" class="form-control" placeholder="현재 비밀번호" name="nowPassword" id="nowPassword" required/>
-		<p id="nowPwdErrorMsg" class="errorMsg"></p>
-		<input type="password" class="form-control" placeholder="새비밀번호" name="password" id="newPassword" required/>
-		<input type="password" class="form-control" placeholder="비밀번호 확인" id="newPasswordCheck" required/>
-		<p id="newPwdErrorMsg" class="errorMsg"></p>
-		<br />
-		<input type="submit" class="btn btn-outline-success" id="submitBtn" value="수정" >&nbsp;
-		<input type="reset" class="btn btn-outline-success" value="취소">
-	</form>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/css/myPage.css"/>
+<sec:authentication property="principal" var="loginMember"/>
+<section class="myPageSection">
+<div class="memberDataContainer">
+	<label for="upFile">
+		<img class="myProfileImg" src=
+		<c:if test="${ loginMember.renamedFilename == null && loginMember.gender == 'M' }">
+			"${ pageContext.request.contextPath }/images/man.png"
+		</c:if>
+		<c:if test="${ loginMember.renamedFilename == null && loginMember.gender == 'F' }">
+			"${ pageContext.request.contextPath }/images/women.png"
+		</c:if>
+		<c:if test="${ loginMember.renamedFilename != null }">
+			"${ pageContext.request.contextPath }/upload/member/${ loginMember.renamedFilename }"
+		</c:if>
+		>
+	</label>
+	<input type="file" id="upFile" name="upFile" accept="image/*"/>
+	<input type="text" class="form-control" placeholder="이름" name="name" id="name" value="${ loginMember.name }" readonly required/>
+	<input type="password" class="form-control" placeholder="현재 비밀번호" name="nowPassword" id="nowPassword" required/>
+	<p id="nowPwdErrorMsg" class="errorMsg"></p>
+	<input type="password" class="form-control" placeholder="새비밀번호" name="password" id="newPassword" required/>
+	<input type="password" class="form-control" placeholder="비밀번호 확인" id="newPasswordCheck" required/>
+	<p id="newPwdErrorMsg" class="errorMsg"></p>
+	<input type="button" class="btn" id="submitBtn" value="수정" >
 </div>
-<hr/>
-<section id="board-container" class="container">
+<div class="myboardContainer">
 	<table id="tbl-board" class="table table-striped table-hover">
 		<tr>
 			<th>번호</th>
@@ -42,9 +49,42 @@ tr[data-no] {cursor:pointer}
 		</tr>
 		</c:forEach>
 	</table>
+</div>
 </section>
 <script>
-const submitBtn = document.querySelector("#submitBtn");
+document.querySelector("#upFile").addEventListener("change", (e)=>{
+	
+	const file = e.target.files[0];
+	
+	if(file){
+		
+		const fr = new FileReader();
+		fr.readAsDataURL(file);
+		fr.onload = (e)=>{
+			document.querySelector(".myProfileImg").src = e.target.result;
+		}
+		
+	}
+	else{
+		console.log("notFile!!!");
+		const renamedFilename = "${loginMember.renamedFilename}";
+		const gender = "${loginMember.gender}";
+		
+		if(renamedFilename.isEmpty){
+			document.querySelector(".myProfileImg").src = "${pageContext.request.contextPath}/upload/member/" + renamedFilename;
+		}
+		else{
+			if(gender == 'M')
+				document.querySelector(".myProfileImg").src = "${pageContext.request.contextPath}/images/man.png";
+			else
+				document.querySelector(".myProfileImg").src = "${pageContext.request.contextPath}/images/women.png";
+		}
+			
+	};
+});
+
+
+<%-- const submitBtn = document.querySelector("#submitBtn");
 const now = new Date();
 const end = new Date(2023, 3, 11);
 
@@ -105,7 +145,7 @@ document.memberUpdateFrm.addEventListener('submit', (e)=>{
 		newPwdErrorMsg.style.display = "none";
 		newPwdErrorMsg.innerHTML = "";
 	}
-});
+}); --%>
 </script>
 </body>
 </html>
